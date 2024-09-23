@@ -1,5 +1,7 @@
 # pBill: The Palm OS xBill port
 
+![pBill_gameplay](https://github.com/user-attachments/assets/5965f3cc-9062-4860-b54e-39779b17e63c)
+
 This is a PalmOS port of the great and addictive xBill game for the X Windowing System.
 
 Welcome to pBill...
