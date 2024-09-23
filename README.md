@@ -36,10 +36,11 @@ Pressing the P in the top right corner will pause the game.
 Pressing the Menu key during a game will quit immediately.
 
 # ORIGINAL AUTHORS
-##Main Programmer
+Main Programmer
 Brian Wellington    
 (bwelling@xbill.org)
-##Programming and graphics
+
+Programming and graphics
 Matias Duarte
 (matias@hyperimage.com)
 
