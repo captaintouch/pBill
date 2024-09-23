@@ -1,0 +1,46 @@
+pBill v1.0 23rd Dec 1999
+
+Rob Nielsen
+rnielsen@cygnus.uwa.edu.au
+http://www.cygnus.uwa.edu.au/~rnielsen/
+
+SOURCE NOTES:
+  pBill is a reasonably direct port of xBill 2.0 which was written in C++.
+  Most of the PalmOS specific code is in the pBill.cc file and the rest was
+	left mostly intact, with the exeption of UI.cc which was mostly gutted.
+	This is my first attempt at a GCC program for the palm so I would
+	appreciate if you let my know of any better ways of doing things or problems
+	with the code.
+
+COMPILING:
+  This game is written in C++ which GCC doesn't seem to like that much.  
+  I found it complained about a line containing 
+
+	  enum {false, true}; 
+
+	in 'include/PalmOS/Common.h'.  I changed this to read
+
+	  #ifndef __cplusplus
+		  enum {false, true};
+		#endif
+
+	and things seemed to work.  You'll also need Perl installed to get the
+	image conversion working.
+
+IMAGES:
+  The images were taken from the original version and can be found in the
+	'fullpics' subdirectory.  They were then shrunken and converted to 2-bit
+	greyscale as 16 colour bitmaps using the windows palette.  Any colour other
+	than 0,7,8 or 15 are transparent.  These are processed by 'bitmap.pl' which
+	converts them into 'pics.cc' as unsigned long arrays.  If you can do a
+	better job of converting the images or tweaking the existing ones, I'd be
+  glad to include them in the distribution.
+
+WIN2:
+  The greyscale routines in win2.c were based on Wes Cherry's Win2 library
+	but as with Mulg I have hacked it to draw my array images from 'pics.cc'.
+	You can get the original at http://www.scumby.com/scumbysoft/pilot/win2/.
+
+LICENSE:
+  pBill is distributed under the GNU General Public Licence 
+  (http://www.gnu.org/copyleft/gpl.html).
