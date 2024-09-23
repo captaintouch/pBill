@@ -6,14 +6,22 @@ Welcome to pBill...
 
 # ORIGINAL PALM OS PORT
 pBill v1.0 23rd Dec 1999
+
 Rob Nielsen
+
 rnielsen@cygnus.uwa.edu.au
+
 http://www.cygnus.uwa.edu.au/~rnielsen/
 
 # 2024 PALM OS VERSION
 pBill v1.1 Sep 2024
+
 Captain's Quarters
-Mastodon: https://social.linux.pizza/@rxpz
+
+Mastodon: 
+https://social.linux.pizza/@rxpz
+
+Web:
 https://ctrl-c.club/~captain/
 
 ## Changes made
@@ -32,17 +40,13 @@ The status bar at the bottom tells the following:
 
 # PALMOS SPECIFICS
 If you change to another application while you are playing, when you return the game will start paused at the start of the level you were on with the score you had at the start of the level.
-Pressing the P in the top right corner will pause the game.
+Pressing the pause icon in the top right corner will pause the game.
 Pressing the Menu key during a game will quit immediately.
 
 # ORIGINAL AUTHORS
-Main Programmer
-Brian Wellington    
-(bwelling@xbill.org)
+Main Programmer: Brian Wellington (bwelling@xbill.org)
 
-Programming and graphics
-Matias Duarte
-(matias@hyperimage.com)
+Programming and graphics: Matias Duarte (matias@hyperimage.com)
 
 http://www.xbill.org
 
