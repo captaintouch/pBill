@@ -1,48 +1,54 @@
-OBJS = pics.o pBill.o win2.o Game.o Horde.o Library.o Monster.o Network.o Spark.o UI.o \
-  Scorelist.o Bucket.o Cable.o Computer.o Picture.o
+# Makefile
+CREATORID = pBil
+FILENAME = pBill
+SRCFILES = $(wildcard sauce/*.c) $(wildcard sauce/*.cc)
+HIRES = false
 
-CC = m68k-palmos-coff-gcc
-CXX= m68k-palmos-coff-gcc
-CSFLAGS = -O2 -S
+# Palm SDK config
+SDK_VERSION = 5
+PALMCC = m68k-palmos-gcc
+PALMINC = /opt/palmdev/sdk-5r3/include
+PILRC = /usr/bin/pilrc
+PALMCFLAGS = -O2 -DPALMOS -DSDK_$(SDK_VERSION)=1 \
+	-I$(PALMINC) \
+	-I$(PALMINC)/Core \
+	-I$(PALMINC)/Core/Hardware \
+	-I$(PALMINC)/Core/UI \
+	-I$(PALMINC)/Core/System \
+	-I$(PALMINC)/Dynamic \
+	-I$(PALMINC)/Libraries
+WARNINGFLAGS = -Wunused
 
-CFLAGS = -O2
-CXXFLAGS = -O2
+all:
+	$(MAKE) EXT="_lowres" HIRES=false build
+	$(MAKE) EXT="_hires" HIRES=true PILRCFLAGS="-D PALMHIRES" GCCFLAGS="-DHIRESBUILD" build
 
-PILRC = pilrc
-OBJRES = m68k-palmos-coff-obj-res
-BUILDPRC = build-prc
+build: compile prebin bin gen_grc combine cleanup
 
-ICONTEXT = "pBill"
-APPID = pBil
+compile: 
+	$(PALMCC) $(GCCFLAGS) $(PALMCFLAGS) ${WARNINGFLAGS} $(SRCFILES)
 
-all: pBill.prc
+ifeq ($(HIRES), true)
+prebin:
+	./generateBitmaps.sh
+	./generateResourceFile.sh --hires
+else
+prebin:
+	./generateBitmaps.sh
+	./generateResourceFile.sh
+endif
 
-Game.o: Game.h
-Horde.o: Horde.h
-Library.o: Library.h
-Monster.o: Monster.h
-Computer.o: Computer.h
-Network.o: Network.h
+bin:
+	$(PILRC) $(PILRCFLAGS) resources/ui.rcp
+	$(PILRC) $(PILRCFLAGS) resources/graphicResources.rcp 
 
-pics.cc: bill.bmp swap.bmp systems.bmp extras.bmp os.bmp
-	perl bitmap.pl pics bill.bmp 11 swap.bmp 13 systems.bmp 8 extras.bmp 4 os.bmp 11
+gen_grc: 
+	m68k-palmos-obj-res a.out
 
-install: mulg.prc
-	pilot-xfer -i mulg.prc
+combine:	
+	build-prc artifacts/$(FILENAME)$(EXT).prc "$(FILENAME)" $(CREATORID) *.a.out.grc *.bin
 
-pBill.prc: res.stamp obj.stamp
-	$(BUILDPRC) pBill.prc $(ICONTEXT) $(APPID) *.pBill.grc *.bin
-
-obj.stamp: pBill
-	$(OBJRES) pBill
-	touch obj.stamp
-
-res.stamp: pBill.rcp pBill.h icon.bmp icon_sm.bmp title.bmp
-	$(PILRC) pBill.rcp .
-	touch res.stamp
-
-pBill: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o pBill
-
-clean:
-	rm -rf *.[oa] pBill *.bin *.stamp *.grc *~ pics.h pics.cc
+cleanup:
+	rm *.grc *.out *.bin
+	rm -Rf resources/assets
+	rm resources/graphicResources.rcp
