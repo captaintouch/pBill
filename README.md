@@ -55,13 +55,13 @@ If you change to another application while you are playing, when you return to t
 Pressing the pause icon in the top right corner will pause the game.
 Pressing the Menu key during a game will end the game and drop you back into the start screen.
 
-# ORIGINAL AUTHORS
+# Original authors
 Main Programmer: Brian Wellington (bwelling@xbill.org)
 
 Programming and graphics: Matias Duarte (matias@hyperimage.com)
 
 http://www.xbill.org
 
-# LICENSE
+# License
 pBill is distributed under the GNU General Public Licence (http://www.gnu.org/copyleft/gpl.html) which means that you can freely make copies of this software and the source code is available on GitHub.
 
